@@ -2,7 +2,7 @@ import os
 
 import pandas as pd
 from dotenv import load_dotenv
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 
 load_dotenv(".env.local")
 DATABASE_URL = os.getenv("DATABASE_URL")
@@ -16,8 +16,8 @@ engine = create_engine(
 )
 
 
-def consultar(sql):
-    return pd.read_sql(sql, engine)
+def consultar(sql, params=None):
+    return pd.read_sql(text(sql), engine, params=params)
 
 
 if __name__ == "__main__":
